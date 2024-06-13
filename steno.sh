@@ -44,7 +44,9 @@ declare -g FILEPATH
 
 CURRENTPATH="$(pwd)"
 
-if [ -z "$1" ]; then
+if [ "$1" == '-h' ]; then
+    usage
+    elif [ -z "$1" ]; then
     echo "[!] No parameter was passed..."; echo ""
     sleep 0.1
     usage
