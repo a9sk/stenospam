@@ -2,6 +2,25 @@
 
 Simple tool for automating basic checks when doing stenography CTF challenges.
 
+## Installation
+
+To install the various tools used you can git clone the project and run the setup.sh script.
+```bash
+git clone https://github.com/a9sk/stenospam
+cd stenospam
+sudo bash setup.sh
+```
+To create a symlink to the code and be able to run the script from any point in your file system run the symlink.sh script.
+```bash
+sudo bash symlink.sh
+```
+NOTE: after creating the symlink do not remove the directory or the symlink will not work.
+
+To run the script you can then use the command stenorun from your terminal
+```bash
+stenorun <filename> -fF <flag format>
+```
+
 ## Usage
 
 ```bash
@@ -21,8 +40,7 @@ The prebuilt tools used are:
 - [Exiftool](https://exiftool.org/) to read metadatas from images, audio, videos and PDFs;
 - [Exiv2](https://exiv2.org/) to read images metadata;
 - [Binwalk](https://github.com/ReFirmLabs/binwalk) for searching a given binary image for embedded files and executable code;
-- [Zsteg](https://github.com/zed-0xff/zsteg) to detect data in PNG and BMP files;
-- [Wavsteg](https://github.com/pavanchhatpar/wav-steg-py) to extract hidden data from .wav files
+- [Zsteg](https://github.com/zed-0xff/zsteg) to detect data in PNG and BMP files.
 
 ## Licence
 
