@@ -94,3 +94,27 @@ then
 else
     echo "[*] Binwalk is installed, continuing..."
 fi
+
+if ! command -v zsteg &> /dev/null
+then
+    read -p "$(echo -e '[?] Zsteg not installed, do you want to install it (will also need ruby if not already present)?'$i' (y/n) ')" ok
+    if [[ $ok == "" ]]
+    then
+        sudo apt install ruby; sudo gem install zsteg
+    else
+        case $ok in
+            [Yy]* )
+                echo "[*] Installing ruby and zsteg..."
+                sudo apt install ruby; sudo gem install zsteg
+                if command -v zsteg &> /dev/null; then
+                    echo "[*] Ok, zsteg installed correctly"
+                else
+                    echo "[!] There was a problem installing zsteg, try manual installation"
+            fi;;
+            * )  echo "[*] Ok, zsteg will not be installed";;
+        esac
+    fi
+else
+    echo "[*] Zsteg is installed, continuing..."
+fi
+
