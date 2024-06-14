@@ -43,7 +43,7 @@ try_strings(){
     else
         local STRING_RESULT=$(strings -a $FILENAME > strings_$FILENAME.txt | grep -o '$FORMAT{[^}]*}')
         if [ -z "$STRING_RESULT"]; then
-            echo "[*] No flag was found using the strings command"
+            echo "[*] No clear flag was found using the strings command"
         else
             echo "[!] Corrispondence found: $STRING_RESULT"
         fi
@@ -58,7 +58,7 @@ try_exiftool(){
     else
         local STRING_RESULT=$(exiftool $FILENAME > exiftool_$FILENAME.txt | grep -o '$FORMAT{[^}]*}')
         if [ -z "$STRING_RESULT"]; then
-            echo "[*] No flag was found using the exiftool command"
+            echo "[*] No clear flag was found using the exiftool command"
         else
             echo "[!] Corrispondence found: $STRING_RESULT"
         fi
@@ -73,7 +73,22 @@ try_exiv2(){
     else
         local STRING_RESULT=$(exiv2 $FILENAME > exiv2_$FILENAME.txt | grep -o '$FORMAT{[^}]*}')
         if [ -z "$STRING_RESULT"]; then
-            echo "[*] No flag was found using the exiv2 command"
+            echo "[*] No clear flag was found using the exiv2 command"
+        else
+            echo "[!] Corrispondence found: $STRING_RESULT"
+        fi
+    fi
+}
+
+try_binwalk(){
+    echo "[*] Trying binwalk enumeration and filtering"
+    if ! command -v binwalk &> /dev/null
+    then
+        echo "[!] Binwalk command is missing, install it or run the setup"
+    else
+        local STRING_RESULT=$(binwalk --log=binwalk_$FILENAME.txt $FILENAME | grep -o '$FORMAT{[^}]*}')
+        if [ -z "$STRING_RESULT"]; then
+            echo "[*] No clear flag was found using the binwalk command"
         else
             echo "[!] Corrispondence found: $STRING_RESULT"
         fi
@@ -85,6 +100,7 @@ main(){
     try_strings
     try_exiftool
     try_exiv2
+    try_binwalk
 }
 
 clear
