@@ -95,12 +95,28 @@ try_binwalk(){
     fi
 }
 
+try_zsteg(){
+    echo "[*] Trying zsteg enumeration and filtering"
+    if ! command -v zsteg &> /dev/null
+    then
+        echo "[!] Zsteg command is missing, install it or run the setup"
+    else
+        local STRING_RESULT=$(zsteg -a $FILENAME > zsteg_$FILENAME.txt | grep -o '$FORMAT{[^}]*}')
+        if [ -z "$STRING_RESULT"]; then
+            echo "[*] No clear flag was found using the zsteg command"
+        else
+            echo "[!] Corrispondence found: $STRING_RESULT"
+        fi
+    fi
+}
+
 main(){
     echo "Starting the enumerations:"
     try_strings
     try_exiftool
     try_exiv2
     try_binwalk
+    try_zsteg
 }
 
 clear
