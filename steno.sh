@@ -65,10 +65,26 @@ try_exiftool(){
     fi
 }
 
+try_exiv2(){
+    echo "[*] Trying exiv2 enumeration and filtering"
+    if ! command -v exiv2 &> /dev/null
+    then
+        echo "[!] Exiv2 command is missing, install it or run the setup"
+    else
+        local STRING_RESULT=$(exiv2 $FILENAME > exiv2_$FILENAME.txt | grep -o '$FORMAT{[^}]*}')
+        if [ -z "$STRING_RESULT"]; then
+            echo "[*] No flag was found using the exiv2 command"
+        else
+            echo "[!] Corrispondence found: $STRING_RESULT"
+        fi
+    fi
+}
+
 main(){
     echo "Starting the enumerations:"
     try_strings
     try_exiftool
+    try_exiv2
 }
 
 clear
