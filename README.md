@@ -1,5 +1,14 @@
 # StenoSpam
 
+```
+     _                                             
+ ___| |_ ___ _ __   ___  ___ _ __   __ _ _ __ ___  
+/ __| __/ _ \ '_ \ / _ \/ __| '_ \ / _` | '_ ` _ \ 
+\__ \ ||  __/ | | | (_) \__ \ |_) | (_| | | | | | |
+|___/\__\___|_| |_|\___/|___/ .__/ \__,_|_| |_| |_|
+                            |_|      
+```
+
 Simple tool for automating basic checks when doing stenography CTF challenges.
 
 ## Installation
