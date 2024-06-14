@@ -36,11 +36,11 @@ set_format(){
 }
 
 try_strings(){
-    if ! command strings &> /dev/null
+    if ! command -v strings &> /dev/null
     then
         echo "[!] Strings command is missing, install it or run the setup"
     else
-        STRING_RESULT=$(strings $FILENAME | grep $FORMAT)
+        STRING_RESULT=$(strings $FILENAME | grep -o '$FORMAT{[^}]*}')
         if [ -z "$STRING_RESULT"]; then
             echo "[*] No flag was found using the strings command"
         else
