@@ -71,3 +71,26 @@ then
 else
     echo "[*] Exiv2 is installed, continuing..."
 fi
+
+if ! command -v binwalk &> /dev/null
+then
+    read -p "$(echo -e '[?] Binwalk not installed, do you want to install it?'$i' (y/n) ')" ok
+    if [[ $ok == "" ]]
+    then
+        sudo apt install binwalk
+    else
+        case $ok in
+            [Yy]* )
+                echo "[*] Installing binwalk..."
+                sudo apt install binwalk
+                if command -v binwalk &> /dev/null; then
+                    echo "[*] Ok, binwalk installed correctly"
+                else
+                    echo "[!] There was a problem installing binwalk, try manual installation"
+            fi;;
+            * )  echo "[*] Ok, binwalk will not be installed";;
+        esac
+    fi
+else
+    echo "[*] Binwalk is installed, continuing..."
+fi
