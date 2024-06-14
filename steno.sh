@@ -35,6 +35,25 @@ set_format(){
     fi
 }
 
+try_strings(){
+    if ! command strings &> /dev/null
+    then
+        echo "[!] Strings command is missing, install it or run the setup"
+    else
+        STRING_RESULT=$(strings $FILENAME | grep $FORMAT)
+        if [ -z "$STRING_RESULT"]; then
+            echo "[*] No flag was found using the strings command"
+        else
+            echo "[!] Corrispondence found: $STRING_RESULT"
+        fi
+    fi
+}
+
+main(){
+    echo "Starting the enumerations:"
+    try_strings
+}
+
 clear
 
 declare -g FORMAT
@@ -62,3 +81,5 @@ if [ -z "$2" ] || [ -z "$3" ]; then #if parameter 3 exist then parameter 2 also 
 else
     set_format $2 $3
 fi
+
+main
