@@ -1,5 +1,14 @@
 #/bin/bash
 
+banner(){
+    echo "     _"; sleep 0.1
+    echo " ___| |_ ___ _ __   ___  ___ _ __   __ _ _ __ ___"; sleep 0.1
+    echo "/ __| __/ _ \ '_ \ / _ \/ __| '_ \ / _\` | '_ \` _ \\"; sleep 0.1
+    echo "\__ \ ||  __/ | | | (_) \__ \ |_) | (_| | | | | | |"; sleep 0.1
+    echo "|___/\__\___|_| |_|\___/|___/ .__/ \__,_|_| |_| |_|"; sleep 0.1
+    echo "                            |_|   @a9sk"; sleep 0.1
+    echo ""
+}
 usage(){
     echo "Usage: stenorun <filename> -fF <flag format>"
     echo ""
@@ -111,6 +120,7 @@ try_zsteg(){
 }
 
 main(){
+    banner
     echo "Starting the enumerations:"
     try_strings
     try_exiftool
@@ -120,7 +130,7 @@ main(){
 }
 
 clear
-
+banner
 declare -g FORMAT
 declare -g FILENAME
 declare -g CURRENTPATH
