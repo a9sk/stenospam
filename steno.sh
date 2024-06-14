@@ -41,7 +41,7 @@ try_strings(){
     then
         echo "[!] Strings command is missing, install it or run the setup"
     else
-        local STRING_RESULT=$(strings $FILENAME | grep -o '$FORMAT{[^}]*}')
+        local STRING_RESULT=$(strings -a $FILENAME > strings_$FILENAME.txt | grep -o '$FORMAT{[^}]*}')
         if [ -z "$STRING_RESULT"]; then
             echo "[*] No flag was found using the strings command"
         else
@@ -56,7 +56,7 @@ try_exiftool(){
     then
         echo "[!] Exiftool command is missing, install it or run the setup"
     else
-        local STRING_RESULT=$(exiftool $FILENAME | grep -o '$FORMAT{[^}]*}')
+        local STRING_RESULT=$(exiftool $FILENAME > exiftool_$FILENAME.txt | grep -o '$FORMAT{[^}]*}')
         if [ -z "$STRING_RESULT"]; then
             echo "[*] No flag was found using the exiftool command"
         else
