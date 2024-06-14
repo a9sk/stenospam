@@ -36,13 +36,29 @@ set_format(){
 }
 
 try_strings(){
+    echo "[*] Trying strings enumeration and filtering"
     if ! command -v strings &> /dev/null
     then
         echo "[!] Strings command is missing, install it or run the setup"
     else
-        STRING_RESULT=$(strings $FILENAME | grep -o '$FORMAT{[^}]*}')
+        local STRING_RESULT=$(strings $FILENAME | grep -o '$FORMAT{[^}]*}')
         if [ -z "$STRING_RESULT"]; then
             echo "[*] No flag was found using the strings command"
+        else
+            echo "[!] Corrispondence found: $STRING_RESULT"
+        fi
+    fi
+}
+
+try_exiftool(){
+    echo "[*] Trying exiftool enumeration and filtering"
+    if ! command -v exiftool &> /dev/null
+    then
+        echo "[!] Exiftool command is missing, install it or run the setup"
+    else
+        local STRING_RESULT=$(exiftool $FILENAME | grep -o '$FORMAT{[^}]*}')
+        if [ -z "$STRING_RESULT"]; then
+            echo "[*] No flag was found using the exiftool command"
         else
             echo "[!] Corrispondence found: $STRING_RESULT"
         fi
@@ -52,6 +68,7 @@ try_strings(){
 main(){
     echo "Starting the enumerations:"
     try_strings
+    try_exiftool
 }
 
 clear
